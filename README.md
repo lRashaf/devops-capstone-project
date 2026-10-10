@@ -1,5 +1,7 @@
 # devops-capstone-project
 
+![Build Status](https://github.com/lRashaf/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
+
 **Project name: devops-capstone-project**
 
 Capstone project for the IBM DevOps and Software Engineering Professional Certificate.
