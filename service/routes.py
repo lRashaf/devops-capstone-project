@@ -29,7 +29,7 @@ def index():
         jsonify(
             name="Account REST API Service",
             version="1.0",
-            # paths=url_for("list_accounts", _external=True),
+            paths=url_for("list_accounts", _external=True),
         ),
         status.HTTP_200_OK,
     )
@@ -59,8 +59,17 @@ def create_accounts():
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
-
-# ... place you code here to LIST accounts ...
+@app.route("/accounts", methods=["GET"])
+def list_accounts():
+    """
+    List all Accounts
+    This endpoint will list all Accounts
+    """
+    app.logger.info("Request to list Accounts")
+    accounts = Account.all()
+    account_list = [account.serialize() for account in accounts]
+    app.logger.info("Returning [%s] accounts", len(account_list))
+    return jsonify(account_list), status.HTTP_200_OK
 
 
 ######################################################################
@@ -106,7 +115,6 @@ def update_accounts(account_id):
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
-
 @app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_accounts(account_id):
     """
@@ -118,6 +126,7 @@ def delete_accounts(account_id):
     if account:
         account.delete()
     return "", status.HTTP_204_NO_CONTENT
+
 
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
